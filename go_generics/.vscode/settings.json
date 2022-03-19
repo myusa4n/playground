@@ -1,0 +1,6 @@
+{
+  "gopls": {
+    "experimentalWorkspaceModule": true
+  },
+  "go.goroot": "$HOME/.anyenv/envs/goenv/versions/1.18.0"
+}
