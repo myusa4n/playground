@@ -1,6 +1,6 @@
 import { ExternalAPIFailedError } from "../model/error"
 import { WeatherStore } from "./weather_store"
-import config from "../config/test"
+import config from "../config/testing"
 
 describe("fetchForecastのテスト", () => {
   test("fetchForecastが失敗したときはExternalAPIFailedErrorを投げる", async () => {

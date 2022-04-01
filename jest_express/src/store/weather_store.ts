@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios"
 import { ExternalAPIFailedError } from "../model/error"
-import * as weatherForecast from "../model/weather_forecast"
-import { WeatherForecastCityPayload } from "../payload/external/weather_forecast_payload"
+import { WeatherForecast } from "../model/weather_forecast"
+import * as weatherForecastCity from "../payload/external/weather_forecast_city_payload"
 
 export class WeatherStore {
   private endpoint: string
@@ -12,9 +12,9 @@ export class WeatherStore {
     this.endpoint = config.weatherAPIEndpoint
   }
 
-  async fetchForecasts(cityID: number): Promise<weatherForecast.Model[]> {
+  async fetchForecasts(cityID: number): Promise<WeatherForecast[]> {
     const url = this.endpoint + `/city/${cityID}`
-    let response: AxiosResponse<WeatherForecastCityPayload>
+    let response: AxiosResponse<weatherForecastCity.Payload>
     try {
       response = await axios.get(url)
     } catch (e) {
@@ -26,6 +26,6 @@ export class WeatherStore {
     if ("error" in data) {
       throw new ExternalAPIFailedError(data.error)
     }
-    return weatherForecast.mapToDomainMany(data)
+    return weatherForecastCity.mapToDomainMany(data)
   }
 }

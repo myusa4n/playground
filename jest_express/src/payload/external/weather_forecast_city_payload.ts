@@ -1,8 +1,10 @@
-export type WeatherErrorPayload = {
+import { WeatherForecast } from "../../model/weather_forecast"
+
+export type FailurePayload = {
   error: string
 }
 
-export type WeatherForecastCitySuccessPayload = {
+export type SuccessPayload = {
   description: {
     text: string
     publicTime: string
@@ -32,4 +34,11 @@ export type WeatherForecastCitySuccessPayload = {
   }[]
 }
 
-export type WeatherForecastCityPayload = WeatherErrorPayload | WeatherForecastCitySuccessPayload
+export const mapToDomainMany = (payload: SuccessPayload): WeatherForecast[] => {
+  return payload.forecasts.map((f) => ({
+    date: f.date,
+    weather: f.detail.weather
+  }))
+}
+
+export type Payload = SuccessPayload | FailurePayload 
